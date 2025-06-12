@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+    app:
+        container_name: leaveManagement
+        build:
+            args:
+                user: ahmed
+                uid: 1000
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        ports:
+            - "8000:9000"
+        volumes:
+            - .:/var/www/leave.management:delegated
+        networks:
+            leaveManagement:
+
+networks:
+    leaveManagement:
+        name: leaveManagement
