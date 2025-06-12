@@ -16,6 +16,28 @@ services:
             - .:/var/www/leave.management:delegated
         networks:
             leaveManagement:
+    db:
+        container_name: db
+        image: mysql:latest
+        ports:
+            - "3309:3306"
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+        expose:
+            - '3306'
+        depends_on:
+            - app
+        volumes:
+            - mysql_data:/var/lib/mysql
+        networks:
+            leaveManagement:
+
+volumes:
+    mysql_data:
 
 networks:
     leaveManagement:
